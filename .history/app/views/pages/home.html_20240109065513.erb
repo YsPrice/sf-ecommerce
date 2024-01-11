@@ -1,0 +1,9 @@
+<% if user_signed_in? %>
+  <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { method: :post }) do |f| %>
+    <%= f.email_field :email, placeholder: 'Email' %>
+    <%= f.password_field :password, placeholder: 'Password' %>
+    <%= f.submit 'Sign In' %>
+  <% end %>
+<% end %>
