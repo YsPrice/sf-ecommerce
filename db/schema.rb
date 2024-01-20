@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_10_140203) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_19_142724) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -43,6 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_140203) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cart_id"
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
     t.index ["user_id"], name: "index_cart_items_on_user_id"
   end
@@ -50,10 +52,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_140203) do
   create_table "carts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "total_items"
-    t.text "item_names"
     t.decimal "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "jwt_denylists", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -62,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_140203) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cart_id", null: false
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
@@ -111,8 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_140203) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
-  add_foreign_key "cart_items", "users"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "orders", "users"
