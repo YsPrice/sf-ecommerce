@@ -123,6 +123,10 @@ GEM
     digest-crc (0.6.5)
       rake (>= 12.0.0, < 14.0.0)
     domain_name (0.6.20231109)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
       zeitwerk (~> 2.6)
@@ -144,6 +148,10 @@ GEM
     formtastic_i18n (0.7.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    globalize (6.3.0)
+      activemodel (>= 4.2, < 7.2)
+      activerecord (>= 4.2, < 7.2)
+      request_store (~> 1.0)
     google-apis-core (0.11.2)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.16.2, < 2.a)
@@ -318,6 +326,8 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
+    request_store (1.5.1)
+      rack (>= 1.4)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -420,10 +430,12 @@ DEPENDENCIES
   capybara
   cloudinary
   debug
-  devise (>= 4.9.3)
+  devise (~> 4.9.3)
   devise-jwt
   devise_token_auth
+  dotenv-rails
   dry-configurable
+  globalize (~> 6.0, >= 6.0.1)
   google-cloud-storage
   importmap-rails
   jbuilder
