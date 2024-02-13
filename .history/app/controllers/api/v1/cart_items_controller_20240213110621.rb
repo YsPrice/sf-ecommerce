@@ -16,17 +16,17 @@ module Api
 
         if @cart_item.save
           @cart.update_cart_totals 
-          render json: { message: @product.name + ' was added to your cart', cart_item: @cart_item, cart: @cart }, status: :ok
+          render json: { message: @product.name + ' was added to your cart', cart: @cart }, status: :ok
         else
           render json: { errors: @cart_item.errors.full_messages }, status: :unprocessable_entity
         end
       end
       
       def update
-        cart_item = @cart.cart_items.find(params[:id])
+        cart_item = CartItem.find(params[:id])
     
         if cart_item.update(cart_item_params)
-          render json: { message: 'Cart item updated successfully', cart_item: cart_item, cart:@cart }, status: :ok
+          render json: { message: 'Cart item updated successfully', cart_item:cart_item }, status: :ok
         else
           render json: cart_item.errors, status: :unprocessable_entity
         end

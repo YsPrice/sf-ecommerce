@@ -1,23 +1,16 @@
 module Api
   module V1
-
+# app/controllers/products_controller.rb
 class ProductsController < ApplicationController
-
+  # GET /products or /products.json
   def index
     if params[:search].present?
       @products = search_products(params[:search])
     else
-
-        @products = Product.page(params[:page]).per(params[:per_page])
+      @products = Product.all
     end
 
     render json: @products
-  end
-  def show
-    product = Product.find(params[:id])
-    render json: product
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: "Product not found" }, status: :not_found
   end
 
   private
@@ -32,7 +25,6 @@ class ProductsController < ApplicationController
       category_query = search_params[:category].upcase
       products = products.where(category: Product.categories[category_query])
     end
-    return products
   end
   
   def pagination_dict(collection)
@@ -44,7 +36,6 @@ class ProductsController < ApplicationController
       total_count: collection.total_count
     }
   end
-  
 end
 
 end

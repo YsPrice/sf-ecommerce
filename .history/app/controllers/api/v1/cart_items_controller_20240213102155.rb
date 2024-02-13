@@ -16,23 +16,27 @@ module Api
 
         if @cart_item.save
           @cart.update_cart_totals 
-          render json: { message: @product.name + ' was added to your cart', cart_item: @cart_item, cart: @cart }, status: :ok
+          render json: { message: @product.name + ' was added to your cart', cart: @cart }, status: :ok
         else
           render json: { errors: @cart_item.errors.full_messages }, status: :unprocessable_entity
         end
       end
-      
-      def update
-        cart_item = @cart.cart_items.find(params[:id])
+      def update_item
+        cart = Cart.find(params[:cart_id])
+        item = cart.cart_items.find_by(product_id: params[:item_id])
     
-        if cart_item.update(cart_item_params)
-          render json: { message: 'Cart item updated successfully', cart_item: cart_item, cart:@cart }, status: :ok
+        if item
+          new_quantity = update_quantity_params[:quantity]
+          if new_quantity.positive?
+            item.update(quantity: new_quantity)
+            render json: { message: 'Cart item updated successfully' }, status: :ok
+          else
+            item.destroy
+            render json: { message: 'Cart item removed' }, status: :ok
+          end
         else
-          render json: cart_item.errors, status: :unprocessable_entity
+          render json: { error: 'Item not found in cart' }, status: :not_found
         end
-      end
-    
-
 
       def remove
         @product = Product.find(params[:product_id])
@@ -65,10 +69,11 @@ module Api
 
       def set_cart
         @cart = Cart.find(params[:cart_id])
-
+      
+      
       end
       
-      def cart_item_params
+      def update_quantity_params
         params.require(:cart_item).permit(:quantity)
       end
       def set_cart_item

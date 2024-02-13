@@ -7,7 +7,7 @@ class Cart < ApplicationRecord
       
  order = Order.create!(user: self.user, total_price: self.total_price)
 
-
+      # Temporarily store total items and price before clearing cart items
       total_items_count = cart_items.sum(:quantity)
       total_price_value = cart_items.joins(:product).sum('cart_items.quantity * products.price')
 
@@ -15,16 +15,17 @@ class Cart < ApplicationRecord
         order.line_items.create!(product: cart_item.product, quantity: cart_item.quantity)
       end
 
-
+      # Destroy cart items after creating line items in order
       self.cart_items.destroy_all
 
+      # Update totals after cart items have been processed
       update(total_items: total_items_count, total_price: total_price_value)
 
       order
     end
   end
 
-
+  # This method can be removed if not used elsewhere
   def update_cart_totals
     update_total_items
     update_total_price
@@ -40,7 +41,7 @@ class Cart < ApplicationRecord
     total = cart_items.joins(:product).sum('cart_items.quantity * products.price')
     update(total_price: total)
   end
-end
+
 def cart_items_details
   cart_items.includes(:product).map do |item|
     {

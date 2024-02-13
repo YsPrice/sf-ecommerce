@@ -21,7 +21,9 @@ class ProductsController < ApplicationController
   end
 
   private
-
+def search_params
+  params.permit(search: [:name, :category])[:search]
+end
   def search_products(search_params)
     products = Product.all
     if search_params[:name].present?
@@ -32,7 +34,6 @@ class ProductsController < ApplicationController
       category_query = search_params[:category].upcase
       products = products.where(category: Product.categories[category_query])
     end
-    return products
   end
   
   def pagination_dict(collection)

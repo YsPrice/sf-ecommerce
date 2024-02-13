@@ -19,11 +19,11 @@ Rails.application.routes.draw do
       resources :carts do
         resources :cart_items, only: [:create, :update, :destroy]
       end
-      
+      patch '/cart_items/:id', to: 'cart_items#update_item'
       post '/carts/:cart_id/add_item', to: 'cart_items#add', as: 'add_cart_item'
       delete '/carts/:cart_id/remove_item', to: 'cart_items#remove', as: 'remove_cart_item'
 
-
+      # Routes for products and users
       resources :products, only: [:index,:show]
       get '/products/:id', to: 'products#show'
       resources :users, only: [:show_all] 

@@ -16,7 +16,7 @@ module Api
 
         if @cart_item.save
           @cart.update_cart_totals 
-          render json: { message: @product.name + ' was added to your cart', cart_item: @cart_item, cart: @cart }, status: :ok
+          render json: { message: @product.name + ' was added to your cart', cart: @cart }, status: :ok
         else
           render json: { errors: @cart_item.errors.full_messages }, status: :unprocessable_entity
         end
