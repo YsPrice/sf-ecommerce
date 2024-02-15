@@ -34,10 +34,8 @@ module Api
     
 
       def destroy
-        cart_item = @cart.cart_items.find_by(id: params[:id])
-
-        if cart_item
-          cart_item.destroy
+        if @cart_item
+          @cart_item.destroy
           @cart.update_cart_totals
           render json: { message: 'Item was removed from your cart', cart: @cart }, status: :ok
         else

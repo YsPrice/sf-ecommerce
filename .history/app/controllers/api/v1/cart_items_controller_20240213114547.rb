@@ -34,10 +34,9 @@ module Api
     
 
       def destroy
-        cart_item = @cart.cart_items.find_by(id: params[:id])
-
+        cart_item = @cart.cart_items.find(params[:id]
         if cart_item
-          cart_item.destroy
+          @cart_item.destroy
           @cart.update_cart_totals
           render json: { message: 'Item was removed from your cart', cart: @cart }, status: :ok
         else
@@ -57,9 +56,9 @@ module Api
       def cart_item_params
         params.require(:cart_item).permit(:quantity)
       end
-     def set_cart_item
-        # Logic to set @cart_item based on :id
-        @cart_item = @cart.cart_items.find_by(id: params[:id])
+      def set_cart_item
+        @cart_item = @cart.cart_items.find_by(id: params[:cart_item_id])
+        # ... existing logic ...
       end
     end
   end
