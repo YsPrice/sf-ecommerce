@@ -11,15 +11,17 @@ gem "sprockets-rails"
 #  gem to support sass
 gem "sassc-rails"
 
+gem 'globalize', '~> 6.0', '>= 6.0.1'
+
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 
 # devise gem & token auth
-gem 'devise', '>= 4.9.3'
+gem "devise", '~> 4.9.3'
 
-gem 'devise_token_auth'
+gem "devise_token_auth"
 
-gem 'omniauth', "~> 2.1.2"
+gem "omniauth", "~> 2.1.2"
 # cors
 gem 'rack-cors', :require => 'rack/cors'
 
@@ -44,9 +46,15 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "kaminari"
+
 gem 'devise-jwt'
 
+gem 'dry-configurable'
+
 gem 'jwt'
+
+gem 'pg'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -72,12 +80,16 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  
+  gem 'dotenv-rails', groups: [:development, :test]
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
     gem 'rspec-rails', '~> 5.0'
+
       gem 'letter_opener'
 
 
@@ -91,6 +103,8 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+
   gem "selenium-webdriver"
+
   gem "webdrivers"
 end

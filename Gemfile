@@ -54,6 +54,8 @@ gem 'dry-configurable'
 
 gem 'jwt'
 
+gem 'pg'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
