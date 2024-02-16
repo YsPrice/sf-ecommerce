@@ -264,12 +264,15 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.15.5-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.5-x86_64-linux)
+      racc (~> 1.4)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
     orm_adapter (0.5.0)
     os (1.1.4)
+    pg (1.5.3)
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.4)
@@ -382,6 +385,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.6.9-arm64-darwin)
+    sqlite3 (1.6.9-x86_64-linux)
     stimulus-rails (1.3.0)
       railties (>= 6.0.0)
     stringio (3.1.0)
@@ -423,6 +427,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   activeadmin
@@ -443,6 +448,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   omniauth (~> 2.1.2)
+  pg
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.4, >= 7.0.4.3)
