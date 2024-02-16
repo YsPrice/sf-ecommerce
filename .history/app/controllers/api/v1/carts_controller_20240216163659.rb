@@ -1,6 +1,6 @@
 module Api
   module V1
-    class CartsController < ApplicationController
+    class CartsController < ApplicationController 
       before_action :set_cart, only: [:show, :update, :destroy]
 
       # GET /api/v1/carts/:id
@@ -10,7 +10,7 @@ module Api
 
       # POST /api/v1/carts
       def create
-        @cart = Cart.new(cart_params)
+        @cart = Cart.new(user_id: current_user.id)
         if @cart.save
           render json: @cart, status: :created
         else
@@ -36,13 +36,13 @@ module Api
       private
 
       def set_cart
-        @cart = Cart.find(params[:id])
+        @cart = current_user.carts.find(params[:id])
   
       end
 
       def cart_params
        
-        params.require(:cart).permit(:user_id, :other_attributes)
+        params.require(:cart).permit(:user_id)
       end
     end
   end

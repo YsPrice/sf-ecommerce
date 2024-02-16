@@ -50,8 +50,7 @@ module Api
       private
 
       def set_cart
-  
-        @cart =  @cart = current_user.cart || Cart.find(params[:cart_id])
+        @cart = current_user.cart || current_user.create_cart
 
       end
       

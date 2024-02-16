@@ -10,7 +10,7 @@ module Api
 
       # POST /api/v1/carts
       def create
-        @cart = Cart.new(cart_params)
+        @cart = Cart.new(user_id: current_user.id)
         if @cart.save
           render json: @cart, status: :created
         else
