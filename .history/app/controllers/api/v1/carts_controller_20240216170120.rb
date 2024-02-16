@@ -1,7 +1,7 @@
 module Api
   module V1
     class CartsController < ApplicationController 
-      
+      include Devise::Controllers::Helpers
       before_action :set_cart, only: [:show, :update, :destroy]
 
       # GET /api/v1/carts/:id
@@ -41,7 +41,12 @@ module Api
           @cart = current_user.cart
         end
         
-  
+        def authenticate_user!
+          # Here, devise should automatically set the current_user
+          unless current_user
+            render json: { error: 'Not Authenticated' }, status: :unauthorized
+          end
+        end
      
 
       def cart_params

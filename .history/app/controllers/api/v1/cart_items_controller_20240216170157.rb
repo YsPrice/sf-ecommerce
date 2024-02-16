@@ -1,9 +1,7 @@
 module Api
   module V1
     class CartItemsController < ApplicationController
-      before_action :authenticate_user!
       before_action :set_cart
-      
       before_action :set_cart_item, only: [:remove]
 
       def add
@@ -59,7 +57,7 @@ module Api
 
       end
       
-
+      before_action :authenticate_user!
 
       private
     

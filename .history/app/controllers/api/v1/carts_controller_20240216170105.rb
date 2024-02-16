@@ -1,7 +1,7 @@
 module Api
   module V1
     class CartsController < ApplicationController 
-      
+      include Devise::Controllers::Helpers
       before_action :set_cart, only: [:show, :update, :destroy]
 
       # GET /api/v1/carts/:id
