@@ -35,13 +35,13 @@ module Api
 
       private
 
-
+      def set_cart
         def set_cart
           @cart = current_user.cart
         end
         
   
-     
+      end
 
       def cart_params
        
