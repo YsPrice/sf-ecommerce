@@ -40,15 +40,14 @@ class Cart < ApplicationRecord
     total = cart_items.joins(:product).sum('cart_items.quantity * products.price')
     update(total_price: total)
   end
-  def cart_items_details
-    cart_items.includes(:product).map do |item|
-      {
-        product_id: item.product.id,
-        name: item.product.name,
-        price: item.product.price,
-        quantity: item.quantity
-      }
-    end
 end
-
+def cart_items_details
+  cart_items.includes(:product).map do |item|
+    {
+      product_id: item.product.id,
+      name: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity
+    }
+  end
 end
